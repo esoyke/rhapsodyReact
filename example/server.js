@@ -11,7 +11,7 @@ var localUrl = 'http://localhost:' + localPort;
 var herokuUrl = 'https://rhapsody.heroku.com'
 //var redirectUri = baseUrl + '/authorize';
 
-redirectUri = function(){
+var redirectUri = function(){
   if(process.env.PORT)
     return herokuName+':'+process.env.PORT+'/authorize';
   return localUrl+'/authorize';

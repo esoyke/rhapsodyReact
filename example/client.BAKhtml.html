@@ -48,8 +48,7 @@
             Rhapsody.member.set(params);
           }
 
-          // Rhapsody.api.get(false, '/tracks/top', function(tracks) {
-            Rhapsody.api.get(false, '/search?limit=1000&q=hello&type=track', function(tracks) {
+          Rhapsody.api.get(false, '/tracks/top', function(tracks) {
             tracks.forEach(function(track, i) {
               var $t = $('<div class="track" data-track="' + track.id + '">' +
                            '<div class="album-art"></div>' +
@@ -231,9 +230,6 @@
     </style>
   </head>
   <body>
-    <div class-"searchBar">
-      <input type="text" class="searchTrack">
-    </div>
     <div class="header">
       <div class="header-text">jooke.me<span class="user"></span></div>
     </div>

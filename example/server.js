@@ -6,9 +6,16 @@ var querystring = require('querystring');
 var apiKey = 'YmVhOTBiYjAtYjEzZC00ZjdkLWJmNTktM2M0MWJlOTFkNDU2';
 var apiSecret = 'NDYxOTg0ODQtZDI2Yi00MzM0LTk4YWYtNTUwZjJhYzIyNWUy';
 
-var port = 2000;
-var baseUrl = 'http://localhost:' + port;
-var redirectUri = baseUrl + '/authorize';
+var localPort = 2000;
+var localUrl = 'http://localhost:' + localPort;
+var herokuUrl = 'https://rhapsody.heroku.com'
+//var redirectUri = baseUrl + '/authorize';
+
+redirectUri = function(){
+  if(process.env.PORT)
+    return herokuName+':'+process.env.PORT+'/authorize';
+  return localUrl+'/authorize';
+}
 
 var app = express();
 
@@ -80,6 +87,6 @@ app.get('/reauthorize', function(clientRequest, clientResponse) {
   });
 });
 
-app.listen(process.env.PORT || 2000, function() {
-  console.log('Listening on', process.env.PORT || 2000);
+app.listen(process.env.PORT || localPort, function() {
+  console.log('Listening on', process.env.PORT || localPort);
 });

@@ -80,6 +80,6 @@ app.get('/reauthorize', function(clientRequest, clientResponse) {
   });
 });
 
-app.listen(port, function() {
-  console.log('Listening on', port);
+app.listen(process.env.PORT || 2000, function() {
+  console.log('Listening on', process.env.PORT || 2000);
 });

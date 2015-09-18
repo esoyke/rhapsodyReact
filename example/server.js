@@ -22,7 +22,8 @@ app.get('/', function(request, response) {
     client_id: apiKey,
     redirect_uri: redirectUri
   });
-
+  console.log('authorize:');
+  console.log(path);
   response.redirect(path);
 });
 

@@ -11,9 +11,9 @@ var localUrl = 'http://localhost:' + localPort;
 var herokuUrl = 'https://rhapsody.heroku.com'
 //var redirectUri = baseUrl + '/authorize';
 
-var redirectUri = function(){
+function redirectUri(){
   if(process.env.PORT)
-    return herokuName+':'+process.env.PORT+'/authorize';
+    return herokuUrl+':'+process.env.PORT+'/authorize';
   return localUrl+'/authorize';
 }
 
@@ -27,10 +27,10 @@ app.get('/', function(request, response) {
   var path = 'https://api.rhapsody.com/oauth/authorize?' + querystring.stringify({
     response_type: 'code',
     client_id: apiKey,
-    redirect_uri: redirectUri
+    redirect_uri: redirectUri()
   });
   console.log('authorize:');
-  console.log(path);
+  console.log(redirectUri());
   response.redirect(path);
 });
 
@@ -42,7 +42,7 @@ app.get('/authorize', function(clientRequest, clientResponse) {
       client_secret: apiSecret,
       response_type: 'code',
       code: clientRequest.query.code,
-      redirect_uri: redirectUri,
+      redirect_uri: redirectUri(),
       grant_type: 'authorization_code'
     }
   }, function(error, response, body) {

@@ -11,6 +11,11 @@ var localUrl = 'http://localhost:' + localPort;
 var herokuUrl = 'https://rhapsody.heroku.com'
 //var redirectUri = baseUrl + '/authorize';
 
+function baseUrl(){
+  if(process.env.PORT)
+    return herokuUrl+':'+process.env.PORT;
+  return localUrl;
+}
 function redirectUri(){
   if(process.env.PORT)
     return herokuUrl+':'+process.env.PORT+'/authorize';
@@ -47,7 +52,7 @@ app.get('/authorize', function(clientRequest, clientResponse) {
     }
   }, function(error, response, body) {
     body = JSON.parse(body);
-    clientResponse.redirect(baseUrl + '/client.html?' + querystring.stringify({
+    clientResponse.redirect(baseUrl() + '/client.html?' + querystring.stringify({
       accessToken: body.access_token,
       refreshToken: body.refresh_token
     }));
